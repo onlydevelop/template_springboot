@@ -1,5 +1,34 @@
 package com.example.template.controller;
 
+import com.example.template.model.Book;
+import com.example.template.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
 public class BookController {
-    // TODO: To be implemented
+    @Autowired
+    BookService bookService;
+
+    @GetMapping(path = "/books")
+    public List<Book> getBooks() {
+        return bookService.get();
+    }
+
+    @PostMapping(path = "/books")
+    public Book addBook(@RequestBody Book book) {
+        return bookService.save(book);
+    }
+
+    @PutMapping(path = "/books")
+    public Book updateBook(@RequestBody Book book) {
+        return bookService.update(book);
+    }
+
+    @DeleteMapping(path = "/books")
+    public void deleteBook(@RequestBody Book book) {
+        bookService.delete(book);
+    }
 }
